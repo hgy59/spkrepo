@@ -48,3 +48,20 @@ As an example of deployment, spkrepo provides `SaltStack <http://www.saltstack.c
 You can test this with `Vagrant <https://www.vagrantup.com/>`_ by running ``vagrant up``. This makes easy to reproduce
 production-like environments.
 
+Docker
+~~~~~~
+The Dockerfile based on a small debian stretch image (9.3-slim) has all the prerequisites to run the spkrepo 
+within a docker container on linux hosts.
+No virtual environment is used here.
+
+Just provide a volume for the /data directory and publish the preferred port to run the server like:
+
+``docker run -it --rm -p 8080:5000 -v $(pwd)/data:/data spkrepo``
+
+To run a container with the shell to manually execute python use:
+
+``docker run -it --rm -p 8080:5000 -v $(pwd)/data:/data spkrepo sh``
+
+In the shell you can execute commands like ``python manage.py db create`` and other installation tasks (see above).
+If you start the server in the shell with ``python manage.py runserver`` you must add the ``--host=0.0.0.0`` option, otherwise the 
+web page is not accessible from outside of the container.

@@ -1,0 +1,17 @@
+# ignore all
+*
+# except:
+!LICENSE
+!README.rst
+!HISTORY.rst
+!requirements.txt
+!dev-requirements.txt
+!manage.py
+!setup.py
+!wsgi.py
+!spkrepo/*.py
+!spkrepo/tests/*.py
+!spkrepo/views/*.py
+!spkrepo/static/*
+!spkrepo/templates/*
+!migrations/*

@@ -48,3 +48,20 @@ As an example of deployment, spkrepo provides `SaltStack <http://www.saltstack.c
 You can test this with `Vagrant <https://www.vagrantup.com/>`_ by running ``vagrant up``. This makes easy to reproduce
 production-like environments.
 
+Docker
+~~~~~~
+The Dockerfile is based on a minimal debian image and has all the prerequisites to run the spkrepo with python3 on linux hosts.
+
+Just provide a volume for the /data directory and publish the preferred port to run the server, like:
+
+``docker run -it --rm -p 8080:5000 -v $(pwd)/data:/data spkrepo:latest``
+
+To run a container with the shell to manually execute python use:
+
+``docker run -it --rm -p 8080:5000 -v $(pwd)/data:/data spkrepo:latest sh``
+
+In the shell you can execute commands like ``python manage.py db create`` and other installation tasks (see above).
+If you start the server in the shell with ``python manage.py runserver`` you must add the ``--host=0.0.0.0`` parameter, otherwise the 
+web page is not accessible from outside of the container.
+
+Before running tests with ``python manage.py test`` you must install the dev-requirements with ``pip install -r dev-requirements.txt``, since the docker image has only the release requirements installed.
